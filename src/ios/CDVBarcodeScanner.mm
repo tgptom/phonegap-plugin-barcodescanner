@@ -7,7 +7,6 @@
  */
 
 #import <AVFoundation/AVFoundation.h>
-#import <AssetsLibrary/AssetsLibrary.h>
 #import <Cordova/CDVPlugin.h>
 
 
@@ -710,7 +709,7 @@ parentViewController:(UIViewController*)parentViewController
     CGFloat width = _size;
     CGFloat height = _size;
 
-    UIGraphicsBeginImageContext(CGSizeMake(width, height));
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, height), NO, 0.0);
 
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextSetInterpolationQuality(ctx, kCGInterpolationNone);
@@ -770,7 +769,7 @@ parentViewController:(UIViewController*)parentViewController
 - (void)viewWillAppear:(BOOL)animated {
 
     // set video orientation to what the camera sees
-    self.processor.previewLayer.connection.videoOrientation = [self interfaceOrientationToVideoOrientation:[UIApplication sharedApplication].statusBarOrientation];
+    self.processor.previewLayer.connection.videoOrientation = [self interfaceOrientationToVideoOrientation:[self currentInterfaceOrientation]];
 
     // this fixes the bug when the statusbar is landscape, and the preview layer
     // starts up in portrait (not filling the whole view)
@@ -791,7 +790,7 @@ parentViewController:(UIViewController*)parentViewController
     previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 
     if ([previewLayer.connection isVideoOrientationSupported]) {
-        previewLayer.connection.videoOrientation = [self interfaceOrientationToVideoOrientation:[UIApplication sharedApplication].statusBarOrientation];
+        previewLayer.connection.videoOrientation = [self interfaceOrientationToVideoOrientation:[self currentInterfaceOrientation]];
     }
 
     [self.view.layer insertSublayer:previewLayer below:[[self.view.layer sublayers] objectAtIndex:0]];
@@ -975,7 +974,7 @@ parentViewController:(UIViewController*)parentViewController
 //-------------------------------------------------------------------------
 - (UIImage*)buildReticleImage {
     UIImage* result;
-    UIGraphicsBeginImageContext(CGSizeMake(RETICLE_SIZE, RETICLE_SIZE));
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(RETICLE_SIZE, RETICLE_SIZE), NO, 0.0);
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     if (self.processor.is1D) {
@@ -1008,6 +1007,27 @@ parentViewController:(UIViewController*)parentViewController
     return result;
 }
 
+//--------------------------------------------------------------------------
+// Returns the current interface orientation in a way that is safe on iOS 13+.
+// On iOS 13+, uses the window scene to get the orientation, avoiding the
+// deprecated [UIApplication sharedApplication].statusBarOrientation API.
+//--------------------------------------------------------------------------
+- (UIInterfaceOrientation)currentInterfaceOrientation {
+    if (@available(iOS 13.0, *)) {
+        UIWindowScene *scene = (UIWindowScene *)self.view.window.windowScene;
+        if (!scene) {
+            scene = (UIWindowScene *)[[[UIApplication sharedApplication] connectedScenes] anyObject];
+        }
+        if ([scene isKindOfClass:[UIWindowScene class]]) {
+            return scene.interfaceOrientation;
+        }
+    }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    return [[UIApplication sharedApplication] statusBarOrientation];
+#pragma clang diagnostic pop
+}
+
 #pragma mark CDVBarcodeScannerOrientationDelegate
 
 - (BOOL)shouldAutorotate
@@ -1017,7 +1037,7 @@ parentViewController:(UIViewController*)parentViewController
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
-    return [[UIApplication sharedApplication] statusBarOrientation];
+    return [self currentInterfaceOrientation];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
