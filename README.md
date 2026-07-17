@@ -11,10 +11,10 @@ Follows the [Cordova Plugin spec](https://cordova.apache.org/docs/en/latest/plug
 
 | Platform        | Minimum version |
 |-----------------|-----------------|
-| cordova-android | 15.0.0          |
-| cordova-ios     | 8.0.0           |
+| cordova-android | 14.0.0          |
+| cordova-ios     | 7.0.0           |
 | Cordova CLI     | 12.0.0          |
-| Android SDK     | minSdk 24, targetSdk 36 (via cordova-android@15) |
+| Android SDK     | minSdk 24, targetSdk 35 (via cordova-android@14) |
 | iOS deployment target | 13.0+    |
 | Xcode           | 15+             |
 
