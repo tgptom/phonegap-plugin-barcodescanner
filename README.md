@@ -1,7 +1,7 @@
 # PhoneGap Plugin BarcodeScanner
 ================================
 
-[![Build Status](https://travis-ci.org/phonegap/phonegap-plugin-barcodescanner.svg)](https://travis-ci.org/phonegap/phonegap-plugin-barcodescanner)
+[![Build Status](https://travis-ci.org/tgptom/phonegap-plugin-barcodescanner.svg)](https://travis-ci.org/tgptom/phonegap-plugin-barcodescanner)
 
 Cross-platform BarcodeScanner for Cordova / PhoneGap.
 
@@ -16,7 +16,7 @@ This requires phonegap 7.1.0+ ( current stable v8.0.0 )
 
 It is also possible to install via repo url directly ( unstable )
 
-    phonegap plugin add https://github.com/phonegap/phonegap-plugin-barcodescanner.git
+    phonegap plugin add https://github.com/tgptom/phonegap-plugin-barcodescanner.git
 
 Optional variables:
 This plugin requires the Android support library v4. The minimum version is `24.1.0`. Default value is `27.+`.  Check out the latest version [here](https://developer.android.com/topic/libraries/support-library/revisions.html).
