@@ -1,6 +1,6 @@
 # Change Log
 
-## Unreleased
+## v9.0.0
 
 ### Modernization for cordova-android@15 and cordova-ios@8
 
