@@ -1,5 +1,28 @@
 # Change Log
 
+## v9.0.0
+
+### Modernization for cordova-android@14+ and cordova-ios@7+
+
+**Android:**
+- Removed legacy `com.android.support:support-v4` dependency and `ANDROID_SUPPORT_V4_VERSION` preference (not needed by the embedded AAR or plugin Java code)
+- Removed `jcenter()` repository from `barcodescanner.gradle` (no longer available / needed)
+- Updated `packagingOptions` to AGP 8.x-compatible `packaging { resources { excludes += [...] } }` syntax
+- Added explicit `android:exported="false"` to `EncodeActivity` manifest entry for Android 12+ compatibility
+- Updated engine metadata: requires `cordova-android >= 14.0.0`
+
+**iOS:**
+- Removed deprecated `#import <AssetsLibrary/AssetsLibrary.h>` (was unused)
+- Replaced `[UIApplication sharedApplication].statusBarOrientation` (deprecated since iOS 13) with a scene-based orientation helper (`UIWindowScene.interfaceOrientation`) with fallback for older OS versions
+- Replaced `UIGraphicsBeginImageContext` (deprecated) with `UIGraphicsBeginImageContextWithOptions` in both the QR code encoder and the reticle image builder
+- Preserved application-managed `NSCameraUsageDescription` configuration to avoid conflicts with existing `config.xml` entries
+- Updated engine metadata: requires `cordova-ios >= 7.0.0`
+
+**Docs:**
+- Updated README to remove legacy Android Support Library install instructions
+- Added compatibility table documenting requirements for cordova-android@14+ / cordova-ios@7+
+- Documented application-managed `NSCameraUsageDescription` configuration
+
 ## v8.1.2
 
 - Update barcodescanner to v3.5.1 (https://github.com/simplifier-ag/barcodescanner-lib-aar/releases/download/v3.5.1/barcodescanner-release-3.5.1.aar)

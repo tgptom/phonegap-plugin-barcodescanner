@@ -7,22 +7,25 @@ Cross-platform BarcodeScanner for Cordova / PhoneGap.
 
 Follows the [Cordova Plugin spec](https://cordova.apache.org/docs/en/latest/plugin_ref/spec.html), so that it works with [Plugman](https://github.com/apache/cordova-plugman).
 
+## Compatibility
+
+| Platform        | Minimum version |
+|-----------------|-----------------|
+| cordova-android | 14.0.0          |
+| cordova-ios     | 7.0.0           |
+| Cordova CLI     | 12.0.0          |
+| Android SDK     | minSdk 24, targetSdk 35 (via cordova-android@14) |
+| iOS deployment target | 13.0+    |
+| Xcode           | 15+             |
+
 ## Installation
 
-
-This requires phonegap 7.1.0+ ( current stable v8.0.0 )
-
-    phonegap plugin add phonegap-plugin-barcodescanner
+    cordova plugin add phonegap-plugin-barcodescanner
 
 It is also possible to install via repo url directly ( unstable )
 
-    phonegap plugin add https://github.com/tgptom/phonegap-plugin-barcodescanner.git
+    cordova plugin add https://github.com/tgptom/phonegap-plugin-barcodescanner.git
 
-Optional variables:
-This plugin requires the Android support library v4. The minimum version is `24.1.0`. Default value is `27.+`.  Check out the latest version [here](https://developer.android.com/topic/libraries/support-library/revisions.html).
-```
-phonegap plugin add phonegap-plugin-barcodescanner --variable ANDROID_SUPPORT_V4_VERSION="27.1.1"
-```
 ### Supported Platforms
 
 - Android
@@ -39,19 +42,6 @@ Note: Windows 10 applications can not be build for `AnyCPU` architecture, which 
 
 ```
 cordova run windows -- --archs=x86
-```
-
-### PhoneGap Build Usage
-
-Add the following to your config.xml:
-
-```
-<!-- add a version here, otherwise PGB will use whatever the latest version of the package on npm is -->
-<plugin name="phonegap-plugin-barcodescanner" />
-```
-On PhoneGap Build if you're using a version of cordova-android of 4 or less, ensure you're building with gradle:
-```
-<preference name="android-build-tool" value="gradle" />
 ```
 
 ## Using the plugin ##
@@ -137,9 +127,9 @@ Since iOS 10 it's mandatory to add a `NSCameraUsageDescription` in the `Info.pli
 `NSCameraUsageDescription` describes the reason that the app accesses the user's camera.
 When the system prompts the user to allow access, this string is displayed as part of the dialog box. If you didn't provide the usage description, the app will crash before showing the dialog. Also, Apple will reject apps that access private data but don't provide an usage description.
 
-To add this entry you can use the `edit-config` tag in the `config.xml` like this:
+Add this entry to your application's `config.xml`:
 
-```
+```xml
 <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
     <string>To scan barcodes</string>
 </edit-config>
