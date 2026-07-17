@@ -11,10 +11,10 @@ Follows the [Cordova Plugin spec](https://cordova.apache.org/docs/en/latest/plug
 
 | Platform        | Minimum version |
 |-----------------|-----------------|
-| cordova-android | 14.0.0          |
+| cordova-android | 15.0.0          |
 | cordova-ios     | 7.0.0           |
 | Cordova CLI     | 12.0.0          |
-| Android SDK     | minSdk 24, targetSdk 35 (via cordova-android@14) |
+| Android SDK     | minSdk 24, compileSdk/targetSdk 36 (via cordova-android@15) |
 | iOS deployment target | 13.0+    |
 | Xcode           | 15+             |
 
@@ -33,10 +33,15 @@ It is also possible to install via repo url directly ( unstable )
 - Windows (Windows/Windows Phone 8.1 and Windows 10)
 - Browser
 
-Note: the Android source for this project includes an Android Library Project.
-plugman currently doesn't support Library Project refs, so its been
-prebuilt as a jar library. Any updates to the Library Project should be
-committed with an updated jar.
+Note: Android uses an embedded AAR built from ZXing BS-4.7.6 sources. The AAR
+requires compileSdk 36 and contains a minSdk 15 manifest entry; the effective
+application minSdk remains 24 through cordova-android@15.
+
+Both the plugin and the embedded `CaptureActivity` handle the runtime camera
+permission. The plugin requests it before launching the activity so permission
+denial is returned through the Cordova error callback. `CaptureActivity` keeps
+its own check as a fallback and does not cause a second prompt after permission
+has already been granted.
 
 Note: Windows 10 applications can not be build for `AnyCPU` architecture, which is default for Windows platform. If you want to build/run Windows 10 app, you should specify target architecture explicitly, for example (Cordova CLI):
 

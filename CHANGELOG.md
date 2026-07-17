@@ -2,9 +2,12 @@
 
 ## v9.0.0
 
-### Modernization for cordova-android@14+ and cordova-ios@7+
+### Modernization for cordova-android@15+ and cordova-ios@7+
 
 **Android:**
+- Updated the embedded barcode scanner AAR to library version 3.5.2, based on ZXing BS-4.7.6
+- Updated the minimum cordova-android version to 15.0.0 for compileSdk 36 compatibility
+- Added the embedded AAR's AndroidX dependencies explicitly because local AAR files do not publish transitive dependency metadata
 - Removed legacy `com.android.support:support-v4` dependency and `ANDROID_SUPPORT_V4_VERSION` preference (not needed by the embedded AAR or plugin Java code)
 - Removed `jcenter()` repository from `barcodescanner.gradle` (no longer available / needed)
 - Updated `packagingOptions` to AGP 8.x-compatible `packaging { resources { excludes += [...] } }` syntax
