@@ -127,18 +127,12 @@ Since iOS 10 it's mandatory to add a `NSCameraUsageDescription` in the `Info.pli
 `NSCameraUsageDescription` describes the reason that the app accesses the user's camera.
 When the system prompts the user to allow access, this string is displayed as part of the dialog box. If you didn't provide the usage description, the app will crash before showing the dialog. Also, Apple will reject apps that access private data but don't provide an usage description.
 
-The plugin automatically adds a default `NSCameraUsageDescription` to `Info.plist`. You can customise the description by passing a variable when installing the plugin:
-
-```
-cordova plugin add phonegap-plugin-barcodescanner --variable CAMERA_USAGE_DESCRIPTION="To scan barcodes"
-```
-
-Or in your `config.xml`:
+Add this entry to your application's `config.xml`:
 
 ```xml
-<plugin name="phonegap-plugin-barcodescanner" spec="*">
-    <variable name="CAMERA_USAGE_DESCRIPTION" value="To scan barcodes" />
-</plugin>
+<edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+    <string>To scan barcodes</string>
+</edit-config>
 ```
 
 ## Windows quirks ##

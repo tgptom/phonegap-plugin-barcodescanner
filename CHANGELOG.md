@@ -15,13 +15,13 @@
 - Removed deprecated `#import <AssetsLibrary/AssetsLibrary.h>` (was unused)
 - Replaced `[UIApplication sharedApplication].statusBarOrientation` (deprecated since iOS 13) with a scene-based orientation helper (`UIWindowScene.interfaceOrientation`) with fallback for older OS versions
 - Replaced `UIGraphicsBeginImageContext` (deprecated) with `UIGraphicsBeginImageContextWithOptions` in both the QR code encoder and the reticle image builder
-- Added `CAMERA_USAGE_DESCRIPTION` plugin preference that automatically writes `NSCameraUsageDescription` into `*-Info.plist`, removing the need for manual `edit-config` in the app's `config.xml`
+- Preserved application-managed `NSCameraUsageDescription` configuration to avoid conflicts with existing `config.xml` entries
 - Updated engine metadata: requires `cordova-ios >= 7.0.0`
 
 **Docs:**
 - Updated README to remove legacy Android Support Library install instructions
 - Added compatibility table documenting requirements for cordova-android@14+ / cordova-ios@7+
-- Documented `CAMERA_USAGE_DESCRIPTION` variable usage
+- Documented application-managed `NSCameraUsageDescription` configuration
 
 ## v8.1.2
 
