@@ -2,7 +2,7 @@
 
 ## v9.0.0
 
-### Modernization for cordova-android@14+ and cordova-ios@7+
+### Modernization for cordova-android@15+ and cordova-ios@7+
 
 **Android:**
 - Updated the embedded barcode scanner AAR to library version 3.5.2, based on ZXing BS-4.7.6
